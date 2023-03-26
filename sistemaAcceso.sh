@@ -12,3 +12,5 @@ printf "\n\t\t\tI n i c i o   d e   s e i ó n\n"
 printf "\n\t\t\t\tUsuario: "
 read usuario
 #echo $usuario
+printf "\n\t\t\t     Contraseña: "
+read contrasena
