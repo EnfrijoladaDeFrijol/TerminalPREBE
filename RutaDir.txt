@@ -1,0 +1,2 @@
+Ruta de la carpeta:
+/home/arthur/Documentos/PROTECO/GNU_Linux/TerminalPREBE
