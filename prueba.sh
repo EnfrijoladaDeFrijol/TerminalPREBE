@@ -1,3 +1,9 @@
 #!/bin/bash
 
-echo "Hola mundo"
+clear # Limpiamos pantalla
+
+printf "Usuario: " 
+whoami
+printf "Ubicación actual: "
+pwd
+
