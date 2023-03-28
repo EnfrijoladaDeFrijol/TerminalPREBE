@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ==-==-==-==-> Solamente son colores
 R='\033[1;31m' # Rojo
 G='\033[1;32m' # Verde
 Y='\033[1;33m' # Amarillo
