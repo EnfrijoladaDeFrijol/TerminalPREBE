@@ -60,13 +60,13 @@ elegirCasillaCirculo() {
 	# eserá la posición de la casilla en todo el arreglo del tablero
 }
 
-
 main() {
 	clear
 	imprimetitulo
 	dibujaTablero
 	elegirCasillaCirculo
 	dibujaTablero
+	# Modificar aquí después para hacer más turnos
 }
 
 main
