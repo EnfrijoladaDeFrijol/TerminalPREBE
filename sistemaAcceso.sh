@@ -12,7 +12,7 @@ Glig='\e[1;32m' # Verde claro
 
 # Sistema de acceso para los usuarios
 # ==-==-==-==-==-==-==-==-==-==-==-==-
-clear
+#clear
 
 printf "\t  _____              _           _   ___ ___ ___ ___ ___ \n"
 printf "\t |_   _|__ _ _ _ __ (_)_ _  __ _| | | _ \ _ \ __| _ ) __|\n"
@@ -30,13 +30,26 @@ printf "$G\n\t\t\t\tUsuario: $W"
 read usuario
 #echo $usuario
 printf "$G\n\t\t\t     Contraseña: $W"
-read contrasena
-#echo $contrasena
+read -s contrasena
+#Obtenemos la contraseña real del sistema auqnue esté encriptada
+contrasena_real=$(sudo cat /etc/shadow | grep "^$(whoami):" | cut -d: -f2)
+encrypted_text=$(echo $contrasena | openssl passwd -1 -stdin)
+
+echo " Contraseña input: $encrypted_text"
+echo " Contraseña del sistema: $contrasena_real"
 
 # ==-==-==-==-> Validación de datos
 if [ $usuario == $USER ]
 then
-	printf "Usuario correcto\n\n"
+	printf "\n>>>> Usuario correcto\n\n"
+
 else
 	printf "Usuario incorrecto\n\n"
+fi
+
+if [ $encrypted_text == $contrasena_real ]
+then
+	printf "Coinciden contraseña\n\n"
+else
+	printf "contraseña incorrecta\n\n"
 fi
