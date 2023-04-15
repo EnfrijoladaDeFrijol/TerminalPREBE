@@ -1,16 +1,23 @@
-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
+==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 	    ___                   __     
 	   /   | __  ____  ______/ /___ _
 	  / /| |/ / / / / / / __  / __ `/
 	 / ___ / /_/ / /_/ / /_/ / /_/ / 
 	/_/  |_\__, /\__,_/\__,_/\__,_/  
-	      /____/                     
+	      /____/             
 
-		Comandos válidos
+	C o m a n d o s   v á l i d o s
+-------------------------------------------------
 
-	- infosis: Muestra la información del sistema
-	- tiempo: muestra la fecha y hora d actuales
-	- salir: Te saca de la terminal Prebe
-	- jugar: ejecuta el juego programado (Gato)
+- limpiar:	Limpia la pantalla
+- infosis:	Muestra la información del sistema
+- tiempo: 	muestra la fecha y hora d actuales
+- jugar: 	Ejecuta el juego programado (Gato)
+- ayuda: 	Muestra los comandos disponibles 
+- créditos:	Muestra los créditos de los desarro-
+			lladores
+- buscar:	Permite la busqueda de una carpeta
+			y un archivo a buscar
+- musica:	(Aún falta)
 
-	Falta poner más comandos 
+- salir:	 Te saca de la terminal Prebe
