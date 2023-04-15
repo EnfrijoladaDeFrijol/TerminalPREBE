@@ -1,0 +1,16 @@
+==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
+	    ___                   __     
+	   /   | __  ____  ______/ /___ _
+	  / /| |/ / / / / / / __  / __ `/
+	 / ___ / /_/ / /_/ / /_/ / /_/ / 
+	/_/  |_\__, /\__,_/\__,_/\__,_/  
+	      /____/                     
+
+		Comandos válidos
+
+	- infosis: Muestra la información del sistema
+	- tiempo: muestra la fecha y hora d actuales
+	- salir: Te saca de la terminal Prebe
+	- jugar: ejecuta el juego programado (Gato)
+
+	Falta poner más comandos 
