@@ -7,12 +7,12 @@
 * Sistema de acceso para usuario
 * Interacción por una línea de comandos
 * Comandos propios (no del SO)
-    * "ayuda"
-    * "infosis"
-    * fecha y hora
+    * "ayuda" 
+    * "infosis" (listo)
+    * fecha y hora (listo)
     * Busqueda de archivo
-    * Créditos 
-    * Juego programado
+    * Créditos (listo)
+    * Juego programado (listo)
 * Reproductor de música
 
 ## :book: Documentación:
