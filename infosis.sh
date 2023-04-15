@@ -26,9 +26,9 @@ obtenerInfo(){
 }
 
 imprimirInfo(){
-	printf "$Y\n\t1. Aquitectura\n$W$arquitec \n"
-	printf "$Y\n\t2. Memoria RAM\n$W $memorRAM \n"
-	printf "$Y\n\t3. Versión del SO\n$W $versionSO \n"
+	printf "$B\n\t1. Aquitectura\n$W$arquitec \n"
+	printf "$B\n\t2. Memoria RAM\n$W $memorRAM \n"
+	printf "$B\n\t3. Versión del SO\n$W $versionSO \n"
 	printf "\n"
 }
 
