@@ -23,8 +23,8 @@ obtenerFechaHora(){
 }
 
 imprimirFechaHora(){
-	printf "$Y\n\t\tFecha:$W $fecha\n"
-	printf "$Y\n\t\tHora:$W $hora\n"
+	printf "$B\n\t\tFecha:$W $fecha\n"
+	printf "$B\n\t\tHora:$W $hora\n"
 }
 
 main(){
