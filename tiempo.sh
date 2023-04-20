@@ -17,20 +17,15 @@ imprimirTitulo(){
 	printf "\t                   |_|         \n"
 }
 
-obtenerFechaHora(){
-	fecha=$(date +"%Y-%m-%d")
-	hora=$(date +"%H:%M:%S2")
-}
 
 imprimirFechaHora(){
-	printf "$B\n\t\tFecha:$W $fecha\n"
-	printf "$B\n\t\tHora:$W $hora\n"
+	printf "$B\n\t\tFecha:$W %(%Y-%m-%d)T \n"
+	printf "$B\n\t\tHora:$W %(%H:%M:%S2)T \n"
 }
 
 main(){
 	clear
 	imprimirTitulo
-	obtenerFechaHora
 	imprimirFechaHora
 	printf "\n\t    'Que tenga un bonito día :)' \n\n"
 }
