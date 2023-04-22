@@ -8,14 +8,18 @@
 
 	C o m a n d o s   v á l i d o s
 -------------------------------------------------
-- ayuda: 	Muestra los comandos disponibles.
-- buscar:	Busca un archivo en cierta carpeta.
-- capybara:	¿?
-- créditos:	Nombres de los desarrolladores.
-- infosis:	Muestra la información del sistema.
-- jugar: 	Ejecuta el juego programado (Gato).
-- limpiar:	Limpia la pantalla.
-- musica:	(Aún falta)
-- tiempo: 	muestra la fecha y hora actuales.
 
-- salir:	 Te saca de la terminal Prebe
+  Comando 	 Descripción
+ ________________________________________________
+
+- ayuda 	Muestra los comandos disponibles.
+- buscar	Busca un archivo en cierta carpeta.
+- capybara	¿?
+- créditos	Nombres de los desarrolladores.
+- infosis	Muestra la información del sistema.
+- jugar 	Ejecuta el juego programado (Gato).
+- limpiar	Limpia la pantalla.
+- musica	Reproductor para escuchar música
+- tiempo 	Muestra la fecha y hora actuales.
+
+- salir		Te saca de la terminal Prebe
