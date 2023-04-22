@@ -14,7 +14,7 @@ obtenerUserCarpeta(){
 }
 
 imprimirLineaComandos(){
-	printf "$R$usuario$W:$Y$dir$W-$ "
+	printf "$G$usuario$W:$Y$dir$W-$ "
 }
 
 leerComando(){
@@ -22,17 +22,17 @@ leerComando(){
 }
 
 mensajeDespedida(){
-	printf "\n"
-	printf "\t\t   (                 \n"
+	printf "\n\n"
+	printf "\t\t $R  (                 \n"
 	printf "\t\t ( )\   (        (   \n"
-	printf "\t\t )((_)  )\ )    ))\  \n"
+	printf "\t\t )((_)  )\ )    ))\  $Y\n"
 	printf "\t\t((_)_  (()/(   /((_) \n"
-	printf "\t\t | _ )  )(_)) (_))   \n"
+	printf "\t\t$W | _ $Y)  )(_)) (_))  $W \n"
 	printf "\t\t | _ \ | || | / -_)  \n"
 	printf "\t\t |___/  \_, | \___|  \n"
 	printf "\t\t        |__/         \n"
 	printf "\n\t\tS a l i e d o   d e \n"
-	printf "\t    T E R M I N A L   P R E B E\n"
+	printf "\t $Glig   T E R M I N A L   P R E B E $W\n"
 	printf "\t\t\te n :\n\n"
 }
 
@@ -43,7 +43,7 @@ cuentaAtras(){
 		clear
 		imprimirLineaComandos
 		mensajeDespedida
-		printf "\n\t\t\t $i\n\n\n\n\n\n"
+		printf "\n\t\t\t $i\n\n\n\n\n"
 		sleep 1.5
 	done
 }
@@ -57,63 +57,53 @@ main(){
     	imprimirLineaComandos
     	leerComando
 
-    	# 1. Limpiar pantalla
-    	if [[ "$entrada" == "limpiar" ]]
-    	then
-    		clear
-    	# 2. Salir si el usuario escribe "salir"
-    	elif [[ "$entrada" == "salir" ]]
-    	then
-    		printf "\n"
-    		cuentaAtras
-    		clear
-    		cat rei.txt
-    		sleep 0.5
-    		clear
-    		exit 0
-    	# 3. Mostrar información del sistema
-    	elif [[ "$entrada" == "infosis" ]]
-    	then
-    		./infosis.sh
-		# 4. Mostrar la fecha y hora
-    	elif [[ "$entrada" == "tiempo" ]]
-    	then
-    		./tiempo.sh
-		# 5. Mostrar ayuda de comandos ERROR
-    	elif [[ "$entrada" == "ayuda" ]]
-    	then
-    		clear
-    		cat ayuda.txt
-    		printf "\n\n"
-    	# 6. EJecuta el juego
-    	elif [[ "$entrada" == "jugar" ]]
-    	then
-    		./juegoPREBE.sh
-    	# 7. EJecuta el juego
-    	elif [[ "$entrada" == "creditos" ]]
-    	then
-    		clear
-    		cat creditosProgramador.txt
-    		printf "\n\n"
-    	# 8 Busqueda de un archivo
-    	elif [[ "$entrada" == "buscar" ]] 
-    	then
-    		./buscar.sh
-    	# Extra. Easter egg
-    	elif [[ "$entrada" == "capybara" ]]
-    	then
-    		cat capybara.txt
-    		printf "\n\n"
-    	else
-    		printf "$B[Advertencia]$W $entrada: comando no válido.\n"
-    	fi
-
-
-		# Ejecutar el entrada ingresado
-	    #salida=$(eval "$entrada" 2>&1)
-
-	    # Mostrar la salida del comando
-	    #echo "$salida"
+    	case $entrada in
+			ayuda)
+				clear
+				cat ayuda.txt
+				printf "\n\n"
+				;;
+			buscar) 
+				./buscar.sh
+				;;
+			capybara)
+				cat capybara.txt
+				printf "\n\n"
+				;;
+			creditos)
+				clear
+				cat creditosProgramador.txt
+				printf "\n\n"
+				;;
+			infosis)
+				./infosis.sh
+				;;
+			jugar)
+				./juegoPREBE.sh
+				;;
+    		limpiar) 
+				clear
+				;;
+			musica)
+				./reproductorMusica.sh
+				;;
+			tiempo)
+				./tiempo.sh
+				;;	
+			salir)
+				printf "\n"
+				cuentaAtras
+				clear
+				cat rei.txt
+				sleep 0.5
+				clear
+	    		exit 0
+				;;
+			*) # Para cualquier otra entrada
+				$entrada 
+				printf "$B[Advertencia]$W $entrada: comando no válido.\n"
+				;;
+    	esac
    	done
 }
 
