@@ -5,14 +5,14 @@
  ## :book: Contenido:
 
 * Sistema de acceso para usuario
-* Interacción por una línea de comandos (faltan detalles)
+* Interacción por una línea de comandos 
 * Comandos propios (no del SO)
-    * "ayuda" (ya casi)
-    * "infosis" (listo)
-    * fecha y hora (listo)
-    * Busqueda de archivo (listo)
-    * Créditos (listo)
-    * Juego programado (listo)
+    * "ayuda" 
+    * "infosis"
+    * fecha y hora 
+    * Busqueda de archivo 
+    * Créditos 
+    * Juego programado 
 * Reproductor de música
 
 ## :book: Documentación:
