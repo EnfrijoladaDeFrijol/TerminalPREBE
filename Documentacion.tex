@@ -1,6 +1,39 @@
 \documentclass[titlepage]{article}
+\usepackage[utf8]{inputenc}
 \usepackage{graphicx} % Required for inserting images
+\usepackage{listings}
+\usepackage{float}
 \usepackage[spanish]{babel}
+\usepackage{listings}
+\usepackage{minted}
+\setminted{%
+  breaklines=true,
+  autogobble=true,
+  bgcolor=lightgray,
+  fontsize=\footnotesize,
+  frame=lines,
+  framesep=2mm,
+  baselinestretch=1.2,
+  linenos
+}
+\newminted{bash}{%
+    linenos,
+    autogobble,
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    fontsize=\footnotesize,
+    mathescape % <-- Agrega esta opción
+}
+% Definir el entorno para el código de shell
+\lstnewenvironment{shell}{%
+  \lstset{%
+    language=bash,
+    basicstyle=\ttfamily,
+    breaklines=true,
+    columns=fullflexible
+  }
+}{}
 
 \title{Terminal de trabajo PREBE}
 \author{Lechuga Milpas Ángel Alberto \\ Meza Sánchez Luis Arturo }
@@ -13,20 +46,242 @@
 \newpage
 
 \section{Introducción}
-Este proyecto tiene como finalidad poner en práctica los conocimientos adquiridos durante el curso de GNU Linux. Se aplicarán conceptos y conocimientos de Bash así como el manejo de los comandos de Linux para realizar una Terminal la cual será funcional y tendrá diversas funciones que vamos a programar.
-\section{Desarrollo}
-\subsection{Comando 'ayuda'}
+Este proyecto tiene como finalidad poner en práctica los conocimientos adquiridos durante el curso de GNU Linux. Se aplicarán conceptos y conocimientos de Bash así como el manejo de los comandos de Linux para realizar una Terminal la cual será funcional y tendrá diversas funciones que se programan por nosotros mismos. \\
+Este proyecto junta nuestra habilidad de investigación con nuestra capacidad de poder resolver los distintos retos que se nos presenten durante la realización de esta terminal.
+\newpage
 
-\subsection{Comando 'infosis'}
-Para realizar este comando se realizó un script en cual se obtiene:
+\section{Desarrollo}
+
+\subsection{Composición de la Terminal}
+Para la realizacion de la 'Terminal PREBE' lo que se hizo fue tratar de dividir todo el proyecto en partes, lo más pequeñas posibles, para que todo el desarrollo del código y el manejo de los archivos que componen al mismo fueran más sencillos de comprender y manipular.\\
+Por lo que podemos decir que se divide en dos partes:\\
 \begin{enumerate}
-    \item Memoria RAM
-    \item Arquitectura del Sisteme
-    \item Versión del Sistema Operativo
+    \item Sistema de acceso.
+    \item Sistema de interacción con el usuario.
 \end{enumerate}
-Se dividió este script en distintas funciones.\\
-Empezando por la función 
+
+\subsubsection{Sistema de acceso}
+Lo que se hizo en este script fue pedir el nombre de usuasrio y la contraseña. Posteriormente se creó una función para comprobar si estos datos coinciden, esto con la ayuda de un método de encriptación de Python, esa parte del código es tomanda del repositorio de Jhon y Abraham, me reuní con Alan para poder implementar esta parte en nuestros respectivos códigos y salió bastante bien\\
+En pocas palabras esta parte del programa solo verifica si la información del ususario es correcta y procede a dar acceso a la siguiente parte, el sistema de interacción.
+\begin{bashcode}
+    validacionDatos(){
+    # Comprobar si el nomUsuario existe en el sistema
+    if id "$nomUsuario" >/dev/null 2>&1 
+    then
+        # Comprobar si la contraseña del nomUsuario es correcta
+        match=`echo "$cadena" | grep -c "$hash"`
+        if [ "$match" -eq 1 ]
+        then
+            lineaxD
+            printf "\n\n\t\t\t $Glig B I E N V E N I D O\n $W \t\t\t\t $nomUsuario \n\n" 
+            sleep 2
+            ./interaccion.sh
+        else
+            lineaxD
+            printf "\n\n\t\t $M C O N T R A S E Ñ A   I N C O R R E C T A\n $W \n\n" 
+        fi
+    else
+        lineaxD
+        printf "\n\n\t\t $B   U S U A R I O   N O   E X I S T E\n $W \n\n" 
+    fi
+}
+\end{bashcode}
+
+\subsubsection{Sistema de interacción con el usuario}
+El sistema de interacción con el usuario, es por así decirlo, el "controlador" con el cual se iran llamando los diferentes scripts que se programaron para cada comando.\\
+En esta parte solamente se le pide una entrada al suario para ir accediendo a los comandos programados y también a los comandos propios del SO, esto se logró con una sentencia 'case' ya que así se pueden leer también los comandos nativos sin ningún problema.
+
+\subsection{Comandos programados}
+\subsubsection{Comando 'ayuda'}
+Para el comando de 'ayuda' lo que se hizo fue generar un archivo en formato '.txt' en este solo se muestran los comandos disponibles y una breve descripción del mismo. Solo usamos el comando 'cat' para ver este archivo
+
+\subsubsection{Comando 'buscar'}
+
+Para este script lo que se le colicita al usuario es una carpeta y un archivo a buscar, lo que se hace es que primero se comprueba la existencia de la carpeta, en caso de que no exsite se manda un mensaje de advertencia. En caso contrario, que sí exista, se busca dentro de esa carpeta el archivo solicitado, y se manda un mensaje avisando al usuario si existe o no tal archivo dentro de esta carpeta\\
+Imagen: \ref{"imgbuscar"}
+\begin{bashcode}
+    buscarInformacion(){
+#find <ruta> <opciones> <patrón>
+    #find . -name "$archivoBuscado"  Para buscar en el mismo directorio
+    ubiCarpeta=$(find "/home/$USER" -name "$carpeta") # 1. Buscamos la carpeta
+
+    #  test -d "direccion"
+    if [[ -d "$ubiCarpeta" ]] # 2. Validamos si la carpeta existe con "test -f/d"
+    then # 2.a) Existe la carpeta
+        ubiArchivo=$(find "/home/$USER" -name "$archivoBuscado") # 3. Buscamos archivo
+        if [[ -f "$ubiArchivo" ]] # 4. Validamos si existe el archivo
+        then # 4.a) Existe archivo en carpeta 
+            lineaJajs
+            printf "\n\t Archivo$Glig encontrado$W en:\n$ubiArchivo"
+        else # 4.b) No existe el archivo en la carpeta
+            lineaJajs
+            printf "\n   No existe el archivo $Y en la carpeta. $W"
+        fi
+
+    else # 2.b) No existe la carpeta
+        lineaJajs
+        printf "\n   La carpeta$R no existe$W en el sistema."
+    fi
+}
+\end{bashcode}
+
+\subsubsection{Comando 'creditos'}
+Este es un archivo de texto, el cual solo es un pequeño cartel en el que se muestran los nombres de los desarrolladores del proyecto, al igual que con el archivo de texto de ayuda, solo se usa el comando 'cat'.
+
+
+\subsubsection{Comando 'infosis'}
+Para realizar este comando se realizó un script en cual se obtiene la información de la memoria RAM, la arquitectura de la computadora y la versión del sistema operativo con el siguiente código:
+\begin{verbatim}
+    imprimirInfo(){
+    printf "$B\n\t1. Aquitectura\n$W$arquitec \n"
+    printf "$B\n\t2. Memoria RAM\n$W $memorRAM \n"
+    printf "$B\n\t3. Versión del SO\n$W $versionSO \n"
+    printf "\n"
+}
+\end{verbatim}
+
+
+\subsubsection{Comando 'jugar'}
+Para este comando se creó todo un script con un juego, este juego fue el juego de "Gato", el cual tiene varias funciones. Una función para elegir la casilla según el turno del jugador y la función de comprobar el ganador. Así como funciones de imprtesión para darle formato al tablero y a los turnos. Es un juego sencillo pero funcional.\\
+El único detalle que tiene es que si se colocan mal las casillas, el jugador que eligió las casillas va a tener doble turno y así ganar más facilmente, es algo que no pude solucionar pero ahí se quedó. No afecta mucho.
+
+\subsubsection{Comando 'limpiar'}
+Este es un comando muy simple, solo se ejecuta el comando 'clear' el cual ya es nativo del SO, solo que qería agregarlo.
+
+\subsubsection{Comando 'musica'}
+Este comando fue uno de los más complicados. Cabe recalcar que para este reproductor se uso el programa 'mpg123'.\\
+Con este comando lo que se hace es que se ejecuta un script el cual hace varias cosas. Primero verifica si el programa antes mencionado está instalado, si no se pregunta si se quiere instalar. Posteriormente se nos dirige a la ubicación de la música la cual es una carpeta que se encuntra dentro de la carpeta del proyecto donde se encuentra toda la música. \\
+Una vez situados ahí tenemos tres opciones. la de reproducir la música en aleatorio, la de reproducir alguna cacnión deseada y la de salir. Y con los mismos comandos del programa 'mpg123' se hace el control de la reproducción de las cacniones.
+\begin{verbatim}
+main(){
+    opcion=0
+    lugarMusica=musicaPREBE/ # Obtenemos la ruta de la música
+    imprimirTitulo # 1. Imprimimos para que se vea bonito
+    comprobarmpg123 # 2. Comprobamos que exista el reproductor
+
+    while [ "$opcion" != 3 ]
+    do
+        clear
+        imprimirTitulo #    Imprimimos para que se vea bonito
+        imprimirMenu #      Mostramos menú
+        leerOpcionMenu #    Vemos qué quiere hacer el usuario
+
+        case $opcion in
+            1)              # Cacniones aleatoreas
+                clear
+                imprimirTitulo
+                imprimirControlador
+                mpg123 -C --title -q -z "${lugarMusica}"/* # Este comando Alan me lo proporcionó
+                ;;
+            2)              # Canción específica
+                clear
+                imprimirTitulo
+                elegirCancionFav
+                clear
+                imprimirTitulo
+                imprimirControladorIndividual
+                mpg123 -C --title -q -z "${lugarMusica}"/"$cancionFav"
+                ;;
+            3)              # Salir
+                clear
+                exit 0
+                ;;
+            *)              # Opción no válida
+                clear
+                imprimirTitulo
+                imprimirMenu
+                printf "\n\n\t\t    $M[Advertencia]$W Opción no válida.\n"
+                sleep 1.5
+                ;;
+        esac
+    done
+}
+\end{verbatim}
+
+\subsubsection{Comando 'tiempo'}
+Con este comando podemos ver la fecha y la hora actuales.\\
+Para este comando lo que se realizó fue que se obtuvo la hora con el siguiente segemento de código, y solo lo mando a llamar en la función principal del script:
+\begin{verbatim}
+imprimirFechaHora(){
+    printf "$B\n\t\tFecha:$W %(%Y-%m-%d)T \n"
+    printf "$B\n\t\tHora:$W %(%H:%M:%S2)T \n"
+}
+\end{verbatim}
+
+\subsubsection{Comando 'salir'}
+Este comando es un simple 'exit 0' de la sentencia case, una vez que se ejecuta este comando el flujo del programa de interacción con el ususario se rompe y se nos muestra una cuenta regresiva que programé y nos saca completamente de la TerminalPrebe.
+
+
+
+\section{Capturas de la temrinal}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{iamgenes/sistemaAcceso.png}
+    \caption{Sistema de acceso}
+    \label{fig:sistemaacceso}
+\end{figure}
+
+ \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{iamgenes/interaccion.png}
+    \caption{Sistema de interaccion}
+    \label{fig:interaccion}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{iamgenes/ayuda.png}
+    \caption{Comando 'ayuda'}
+    \label{fig:ayuda}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{iamgenes/buscar.png}
+    \caption{Comando 'buscar'}
+    \label{"fig:buscar"}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{iamgenes/infosis.png}
+    \caption{Caption}
+    \label{fig:infosis}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{iamgenes/infosis.png}
+    \caption{Caption}
+    \label{fig:infosis}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{iamgenes/juego.png}
+    \caption{Comando 'jugar'}
+    \label{fig:juego}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{iamgenes/musica.png}
+    \caption{Comando 'musica'}
+    \label{fig:musica}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.50\textwidth]{iamgenes/tiempo.png}
+    \caption{Comando 'tiempo'}
+    \label{fig:tiempo}
+\end{figure}
+
+\newpage
 
 \section{Conclusiones}
+
+Con la realizaciónS de este proyecto, lo que se logró fue poner en práctica los conocimientos que se adquirieron en Linux. Se resolvieron los diversos problemas que se fueron presentando a lo largo del trabajo con ayuda de la busqueda de información en internet y consulta de fuentes en diversos idiomas\\Se puso en práctica la creatividad para poder realizar un código lo más limpio posible, así mismo un formato de salida sencillo y agradable para una mejor experiencia de usuario.\\Se adquirieron muchos conocimientos acerca de bash y sus funciones y aplicaciones. De igual manera se puso en practica la lógica de programación para tener un buen flujo en el código. \\
 
 \end{document}
